@@ -1,4 +1,8 @@
+from setuptools.command.install import install
+from shutil import copyfile
+
 VERSION = '0.1.0'
+
 
 local_path = os.path.dirname(__file__)
 # Fix for tox which manipulates execution pathing
@@ -6,9 +10,24 @@ if not local_path:
     local_path = '.'
 here = os.path.abspath(local_path)
 
+
 # Get the long description from the README file
 with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
+
+
+class PostInstallCommand(install):
+    """Post-installation for installation mode."""
+    def run(self):
+        install.run(self)
+        try:
+            import IPython
+            copyfile(
+                os.path.join(here, 'ipypandex', '__init__.py')
+                os.path.join(IPython.get_ipython().profile_dir, '90-ipypandex.py'))
+        except ModuleNotFoundError:
+            raise RuntimeError("ipypandex requires an ipython installation to work")
+
 
 setup(
     name='ipypandex',
@@ -23,6 +42,7 @@ setup(
     long_description_content_type='text/markdown',
     url='https://github.com/nteract/ipypandex',
     packages=[],
+    cmdclass={'install': PostInstallCommand},
     python_requires='>=3.6',
     install_requires=read_reqs('requirements.txt'),
     extras_require=extras_require,
