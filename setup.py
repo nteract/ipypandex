@@ -1,5 +1,7 @@
 import os
 
+from distutils.core import setup
+
 VERSION = '0.1.0'
 
 local_path = os.path.dirname(__file__)
