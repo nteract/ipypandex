@@ -23,10 +23,11 @@ class PostInstallCommand(install):
     def run(self):
         install.run(self)
         try:
-            import IPython
+            from IPython.terminal.interactiveshell import TerminalInteractiveShell
+            startup_dir = TerminalInteractiveShell.instance().get_ipython().profile_dir.startup_dir
             copyfile(
-                os.path.join(here, 'ipypandex', '__init__.py')
-                os.path.join(IPython.get_ipython().profile_dir, '90-ipypandex.py'))
+                os.path.join(here, 'ipypandex', '__init__.py'),
+                os.path.join(startup_dir, '90-ipypandex.py'))
         except ModuleNotFoundError:
             raise RuntimeError("ipypandex requires an ipython installation to work")
 
