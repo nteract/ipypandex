@@ -1,5 +1,4 @@
 import os
-
 from distutils.core import setup
 
 VERSION = '0.1.0'
@@ -28,8 +27,8 @@ setup(
     url='https://github.com/nteract/ipypandex',
     packages=[],
     python_requires='>=3.6',
-    install_requires=read_reqs('requirements.txt'),
-    extras_require = {
+    install_requires=['pandas', 'ipython'],
+    extras_require={
         'test': ['pytest'],
     },
     project_urls={
