@@ -25,7 +25,9 @@ setup(
     packages=[],
     python_requires='>=3.6',
     install_requires=read_reqs('requirements.txt'),
-    extras_require=extras_require,
+    extras_require = {
+        'test': ['pytest'],
+    },
     project_urls={
         'Funding': 'https://nteract.io',
         'Source': 'https://github.com/nteract/ipypandex/',
