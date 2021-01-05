@@ -17,7 +17,7 @@ jobs:
       run: |
         pip install --upgrade pip setuptools
         pip install .[test]
-    - name: Install nbformat
+    - name: Install ipypandex
       run: |
         pip install .
         pip freeze
