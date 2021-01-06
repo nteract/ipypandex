@@ -1,0 +1,11 @@
+recursive-include ipypandex *.py
+
+include setup.py
+include requirements*.txt
+include README.md
+include LICENSE
+include MANIFEST.in
+include *.md
+include *.toml
+
+include .bumpversion.cfg

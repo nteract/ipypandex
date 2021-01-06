@@ -18,6 +18,14 @@ with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 
+def version():
+    with open(here + '/ipypandex/_version.py', 'r') as ver:
+        for line in ver.readlines():
+            if line.startswith('version ='):
+                return line.split(' = ')[-1].strip()[1:-1]
+    raise ValueError('No version found in ipypandex/version.py')
+
+
 class PostInstallCommand(install):
     """Post-installation for installation mode."""
     def run(self):
@@ -34,7 +42,7 @@ class PostInstallCommand(install):
 
 setup(
     name='ipypandex',
-    version=VERSION,
+    version=version(),
     description='A package for automatically turning on Data Explorer in Pandas for an IPython Jupyter kernel.',
     author='nteract contributors',
     author_email='nteract@googlegroups.com',
